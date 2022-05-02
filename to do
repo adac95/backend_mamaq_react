@@ -1,0 +1,6 @@
+- enviar mas de 1 producto por peticion post (me sale error de no tener datos al enviarlo pero tiene todos los datos completos)
+- en patch.js valido mis inputs con muchos pasos (verifico que el boton tenga dataset para ver si el input esta vacio o no, si esta vacio pero con el valor anterior no pasa nada pero si esta vacio porque lo borre manda un mensaje de error con un listener, etc) /// no seria mas facil volver esos inputs parte de un formulario y asi poner required a los inputs?
+-patch.js // el boton disabled sale se pone en false si escribo en un input que no le pertenece a la fila (tr)
+- Al presionar eliminar y ver network en googledev se disparan todos los archivos del main-crud eso es normal ? no deberia cargar solo el de delete-product?
+
+-Agregar un filtro a mis productos creados para poder ordenarlos y renderizarlos (ensaladas, hamburguesas, postres, etc)
