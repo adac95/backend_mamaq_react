@@ -2,9 +2,11 @@ const express = require('express')
 const router = express.Router()
 const response = require('../utils/response')
 const controller = require("./controller")
+const passport = require('passport')
+const authJwt= require('../middlewares/auth')
 
 router.get('/',
-    // [authJwt.isAuthenticated, authJwt.isAdmin, passport.authenticate('jwt', { session: false })],
+[passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
     (req, res) => {
         controller.getCarts()
             .then(carts => response.success(req, res, carts, 200))
@@ -12,7 +14,7 @@ router.get('/',
     })
 
 router.get('/:id',
-    // [authJwt.isAuthenticated, authJwt.isAdmin, passport.authenticate('jwt', { session: false })],
+[passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
     (req, res) => {
         controller.getOneCart(req.params.id)
             .then(cart => response.success(req, res, cart, 200))
@@ -20,7 +22,7 @@ router.get('/:id',
     })
 
 router.post('/',
-    // [authJwt.isAuthenticated, authJwt.isAdmin, passport.authenticate('jwt', { session: false })],
+[passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
     (req, res) => {
         const { userId, products } = req.body;
         const {productId, productName, cantidad, price, productImagenPath} = products[0]
@@ -30,7 +32,7 @@ router.post('/',
     })
 
 router.patch('/',
-    // [authJwt.isAuthenticated, authJwt.isAdmin, passport.authenticate('jwt', { session: false })],
+[passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
     (req, res) => {
         const { cartId, products } = req.body;
         const {products_id} = products[0]
@@ -42,7 +44,7 @@ router.patch('/',
     })
 
 router.delete('/:id',
-    // [authJwt.isAuthenticated, authJwt.isAdmin, passport.authenticate('jwt', { session: false })],
+[passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
     (req, res) => {
         controller.deleteCart(req.params.id)
             .then(() => response.success(req, res, "Usuario eliminado exitosamente", 200))
@@ -50,7 +52,7 @@ router.delete('/:id',
     })
 
 router.delete('/:cartId/:products_id',
-    // [authJwt.isAuthenticated, authJwt.isAdmin, passport.authenticate('jwt', { session: false })],
+[passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
     (req, res) => {
         const {cartId, products_id} = req.params
         controller.deleteOneProductOfCart({cartId, products_id})
