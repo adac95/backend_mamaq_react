@@ -19,18 +19,9 @@ passport.use(new LocalStrategy(
                 return done(null, userNopass);
             } catch (error) {
                 console.log("Error desde Login passport", error)
+                done(error,false)
             }
 
         });
     }
 ));
-
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
-    });
-});

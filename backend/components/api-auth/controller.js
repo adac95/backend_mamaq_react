@@ -98,7 +98,7 @@ async function signIn(username, password) {
         const token = jwt.sign({ id, username: foundUser.username }, config.secretToken, {
             expiresIn: config.expireTimeCookieToken,
         });
-        const user = {token, id, username: foundUser.username, email: foundUser.email}
+        const user = {token, id, username: foundUser.username, email: foundUser.email, roles: [...foundUser.roles]}
         return user ;
 
     } catch (error) {

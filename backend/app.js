@@ -37,28 +37,28 @@ app.use(morgan('dev'))
 app.use(multer(storage).single('createProductImg'))
 app.use(cookieParser())
 // Express Session
-app.set('trust proxy', 1)
-app.use(session({
-    secret: config.expressSessionSecret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge:config.expireTimeCookieToken,
-        // httpOnly: config.nodeEnv === "production" ? true : false,
-        // secure: config.nodeEnv === "production" ? true : false
-    },
-    store: MongoStore.create({ mongoUrl: config.dbUri })
-}))
-app.use(flash());
+// app.set('trust proxy', 1)
+// app.use(session({
+//     secret: config.expressSessionSecret,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         maxAge:config.expireTimeCookieToken,
+//         // httpOnly: config.nodeEnv === "production" ? true : false,
+//         // secure: config.nodeEnv === "production" ? true : false
+//     },
+//     store: MongoStore.create({ mongoUrl: config.dbUri })
+// }))
+// app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 // Variables locales
-app.use((req, res, next) => {
-    app.locals.user = req.user
-    res.locals.error_msg = req.flash("error_msg")
-    res.locals.error = req.flash("error");
-    next()
-})
+// app.use((req, res, next) => {
+//     app.locals.user = req.user
+//     res.locals.error_msg = req.flash("error_msg")
+//     res.locals.error = req.flash("error");
+//     next()
+// })
 
 // ROUTES
 router(app);
