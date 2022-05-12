@@ -50,10 +50,17 @@ router.post(
     const { userId, products } = req.body;
     const { productId, productName, cantidad, price, productImagenPath } =
       products[0];
-    controller
-    if(userId != req.user.id) {
-        response.error(req, res, "Sin permisos o token invalido", 401, error)
+
+    if (userId != req.user.id) {
+      return response.error(
+        req,
+        res,
+        "Sin permisos o token invalido",
+        401,
+        error
+      );
     }
+    controller
       .addProductToCart({
         userId,
         productId,
@@ -71,16 +78,17 @@ router.post(
 
 router.patch(
   "/",
-  [passport.authenticate("jwt", { session: false }), 
-  authJwt.validTokenAndCartId
-],
+  [
+    passport.authenticate("jwt", { session: false }),
+    authJwt.validTokenAndCartId,
+  ],
   (req, res) => {
     const { cartId, products } = req.body;
-    const userId = req.user.id
+    const userId = req.user.id;
     const { products_id } = products[0];
-    let cantidad = products[0].cantidad.toString()
+    let cantidad = products[0].cantidad.toString();
     controller
-      .patchCart({ userId,cartId, products_id, cantidad })
+      .patchCart({ userId, cartId, products_id, cantidad })
       .then((newCart) => response.success(req, res, newCart, 200))
       .catch((error) =>
         response.error(req, res, "Error al editar el carrito", 500, error)
@@ -92,7 +100,8 @@ router.delete(
   "/:id",
   [passport.authenticate("jwt", { session: false })],
   (req, res) => {
-      if(req.user.id != req.params.id) response.error(req, res, "Sin permisos o token invalido", 500, error)
+    if (req.user.id != req.params.id)
+      response.error(req, res, "Sin permisos o token invalido", 500, error);
     controller
       .deleteCart(req.params.id)
       .then(() =>
@@ -106,7 +115,10 @@ router.delete(
 
 router.delete(
   "/:cartId/:products_id",
-  [passport.authenticate("jwt", { session: false }),authJwt.validTokenAndCartId],
+  [
+    passport.authenticate("jwt", { session: false }),
+    authJwt.validTokenAndCartId,
+  ],
   (req, res) => {
     const { cartId, products_id } = req.params;
     controller
