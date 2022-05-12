@@ -36,9 +36,8 @@ async function patchCart({ userId,cartId, products_id, cantidad }) {
             return message;
         }
         if (cantidad < 1) {
-            await deleteOneProductOfCart({ cartId, products_id })
-            const message = "Producto eliminado del carrito de compras con éxito"
-            return message;
+             const res = await deleteOneProductOfCart({ cartId, products_id })
+            return res
         } else {
             findingIdProductToPatch.cantidad = cantidad;
             const cartUpdated = await cart.save()
