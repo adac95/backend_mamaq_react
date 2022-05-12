@@ -1,13 +1,6 @@
 const RoleModel = require("../models/Roles");
+const shoppingCartModel = require("../models/ShoppingCart");
 const UserModel = require("../models/Users");
-
-// const isAuthenticated = (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     console.log("hola");
-//     return next();
-//   }
-//   res.redirect("/admin");
-// };
 
 const isAdmin = async (req, res, next) => {
   try {
@@ -28,7 +21,17 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
+const validTokenAndCartId = async(req, res,next) => {
+  try{
+    const cart = await shoppingCartModel.findOne({userId: req.user.id})
+    const cartByCartId = await shoppingCartModel.findById(req.body.cartId)
+    if(cart._id.toString() != cartByCartId._id.toString()) {
+        res.status(401).json({body:"", error:"sin permisos o token invalido"})
+    }else next()
+  }catch (error) {console.log(error)
+     next()}
+}
 module.exports = {
-//   isAuthenticated,
   isAdmin,
+  validTokenAndCartId
 };

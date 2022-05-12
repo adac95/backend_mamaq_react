@@ -17,7 +17,7 @@ async function deleteCart(id) {
     return cart;
 }
 
-async function patchCart({ cartId, products_id, cantidad }) {
+async function patchCart({ userId,cartId, products_id, cantidad }) {
     try {
         // valida que llegue el id y la data para actualizar
         if (!cartId || !products_id || !cantidad) {
@@ -25,10 +25,20 @@ async function patchCart({ cartId, products_id, cantidad }) {
             console.log(message)
             return message
         }
-        const cart = await ShoppingCartModel.findById(cartId)
+        const cart = await ShoppingCartModel.findOne({userId})
+        if(!cart){
+            const message = "No existe carrito de compras"
+            return message
+        }
         const findingIdProductToPatch = await  cart.products.find((e) => e._id == products_id)
+        if(!findingIdProductToPatch){
+            const message = "Producto no existe en el carrito de compras"
+            return message;
+        }
         if (cantidad < 1) {
             await deleteOneProductOfCart({ cartId, products_id })
+            const message = "Producto eliminado del carrito de compras con éxito"
+            return message;
         } else {
             findingIdProductToPatch.cantidad = cantidad;
             const cartUpdated = await cart.save()

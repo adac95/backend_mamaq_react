@@ -9,7 +9,6 @@ const authJwt = require("../middlewares/auth");
 
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     controller
       .getAllproducts()
@@ -24,7 +23,7 @@ router.get(
 
 router.post(
   "/",
-  [authJwt.isAdmin, passport.authenticate("jwt", { session: false })],
+  [passport.authenticate("jwt", { session: false }),authJwt.isAdmin],
   (req, res) => {
     const { name, price, category, description } = req.body;
     controller

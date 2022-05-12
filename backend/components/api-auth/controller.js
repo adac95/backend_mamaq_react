@@ -61,7 +61,8 @@ async function signUp(username, email, password, confirmPassword, roles) {
         const token = jwt.sign({ id: userRegister._id }, config.secretToken, {
             expiresIn: config.expireTimeCookieToken,
         });
-        data = {token, userRegister}
+        const newUserNoPassword = {token, id:userRegister._id , username: userRegister.username, email: userRegister.email, roles: [...userRegister.roles]}
+        data = {token, ...newUserNoPassword}
         return data
     } catch (error) {
         console.log(error);

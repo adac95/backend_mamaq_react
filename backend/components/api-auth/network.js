@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
 // SIGN-IN
-
 router.post(
   "/sign-in",
   passport.authenticate("local", { session: false }),
@@ -23,7 +22,7 @@ router.post(
   }
 );
 
-// SIGNUP
+// SIGN-UP
 router.post("/sign-up", (req, res) => {
   const { username, email, password, confirmPassword, roles } = req.body;
   controller
@@ -112,9 +111,9 @@ router.post("/sign-up", (req, res) => {
 
 // LOGOUT
 // router.get("/logout", (req, res) => {
-  // console.log(req.user)
-  // await res.clearCookie("token");
-  // res.redirect("/");
+// console.log(req.user)
+// await res.clearCookie("token");
+// res.redirect("/");
 // });
 
 module.exports = router;
