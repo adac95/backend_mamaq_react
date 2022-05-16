@@ -39,7 +39,7 @@ router.post(
 
 router.patch(
   "/:id",
-  [authJwt.isAdmin, passport.authenticate("jwt", { session: false })],
+  [passport.authenticate("jwt", { session: false }),authJwt.isAdmin],
   (req, res) => {
     const { name, price, category, description } = req.body;
     controller
@@ -55,7 +55,7 @@ router.patch(
 
 router.delete(
   "/:id",
-  [authJwt.isAdmin, passport.authenticate("jwt", { session: false })],
+  [passport.authenticate("jwt", { session: false }), authJwt.isAdmin],
   (req, res) => {
     controller
       .deleteProduct(req.params.id)

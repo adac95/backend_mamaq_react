@@ -6,8 +6,6 @@ const isAdmin = async (req, res, next) => {
   try {
     const user = await UserModel.findById(req.user.id);
     const roles = await RoleModel.roleModel.find({ _id: { $in: user.roles } });
-    // console.log(user);
-    // console.log(roles);
 
     for (let i = 0; i < roles.length; i++) {
       if (roles[i].name === "admin") {

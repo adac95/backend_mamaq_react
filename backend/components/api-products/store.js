@@ -16,7 +16,7 @@ function addProducts(data) {
 async function patchProducts(id, name, price, category, description) {
     try {
         const foundProductById = await Model.findById(id)
-        if (name) foundProductById.name = name
+        if (name || name == "") foundProductById.name = name
         if (price) foundProductById.price = price
         if (category) foundProductById.category = category
         if (description) foundProductById.description = description
