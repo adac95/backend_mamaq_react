@@ -50,7 +50,6 @@ router.post(
     const { userId, products } = req.body;
     const { productId, productName, cantidad, price, productImagenPath } =
       products[0];
-
     if (userId != req.user.id) {
       return response.error(
         req,

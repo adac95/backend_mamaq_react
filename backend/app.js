@@ -31,7 +31,7 @@ createAdmin();
 // MIDDLEWARES
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-// app.use("/public", express.static(path.join(__dirname, '../fronted/public')));
+app.use("/public", express.static(path.join(__dirname, '../fronted/public')));
 app.use(morgan('dev'))
 // Multer
 app.use(multer(storage).single('createProductImg'))

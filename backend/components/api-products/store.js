@@ -7,19 +7,23 @@ function allProducts() {
     return data
 }
 
-function addProducts(data) {
+async function addProducts(data) {
     data.imagen.path = 'public/assets/uploads/' + data.imagen.filename;
-    const newProduct = new Model(data)
-    newProduct.save()
+    const newProduct = await new Model(data)
+    const res = await newProduct.save()
+    console.log(res)
+    return res
 }
 
-async function patchProducts(id, name, price, category, description) {
+async function patchProducts(id, name, price, category, description,image) {
     try {
+        if(image) image.path = 'public/assets/uploads/' + image.filename;
         const foundProductById = await Model.findById(id)
         if (name || name == "") foundProductById.name = name
         if (price) foundProductById.price = price
         if (category) foundProductById.category = category
         if (description) foundProductById.description = description
+        if (image) foundProductById.imagen = image
         
         const updateProduct = await foundProductById.save()
         return updateProduct

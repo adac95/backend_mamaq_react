@@ -43,7 +43,7 @@ router.patch(
   (req, res) => {
     const { name, price, category, description } = req.body;
     controller
-      .patchProduct(req.params.id, name, price, category, description)
+      .patchProduct(req.params.id, name, price, category, description,req.file)
       .then((data) => {
         response.success(req, res, data, 200);
       })
