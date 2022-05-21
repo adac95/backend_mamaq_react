@@ -11,7 +11,6 @@ function addProduct(name, price, category, description, imagen) {
   return new Promise((resolve, reject) => {
     if (!name || !price || !category || !description) {
       console.log("falta completar datos");
-      console.log(name, price, category, description);
       reject("faltan completar datos para crear producto");
       return false;
     }
