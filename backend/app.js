@@ -7,11 +7,7 @@ const morgan = require('morgan')
 const multer = require('multer')
 const storage = require('./components/network/multer')
 const { createRoles, createAdmin } = require('./components/utils/initialSetup');
-const session = require('express-session')
-const flash = require('connect-flash');
 const cookieParser = require('cookie-parser')
-const MongoStore = require('connect-mongo');
-const config = require('./config/index')
 const passport = require('passport')
 const cors = require('cors')
 
