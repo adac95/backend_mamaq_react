@@ -7,7 +7,7 @@
     "node": "15.x"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node backend/index.js",
+    "start": "cross-env NODE_ENV=production node ./index.js",
     "dev": "nodemon backend/index.js"
   },
   "keywords": [],
